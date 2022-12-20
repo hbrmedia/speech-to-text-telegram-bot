@@ -1,0 +1,16 @@
+services:
+
+  app:
+    build:
+      context: .
+    command: ['bin/poller']
+    restart: always
+    ports:
+      - 9292:9292
+    volumes:
+      - .:/app
+    environment:
+      RACK_ENV: development
+      TELEGRAM_TOKEN: TELEGRAM_TOKEN
+      YANDEX_IAM_TOKEN: YANDEX_IAM_TOKEN
+      YANDEX_FOLDER_ID: YANDEX_FOLDER_ID

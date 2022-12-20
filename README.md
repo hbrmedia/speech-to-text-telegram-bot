@@ -1,6 +1,6 @@
 # Speech to text Telegram bot
 
-## Development
+## Development (poller mode)
 ### Setup
 Set environment variables in compose.yaml
 ```
@@ -14,3 +14,7 @@ YANDEX_FOLDER_ID: YANDEX_FOLDER_ID
 ```bash
 docker compose up
 ```
+
+## Production (webhook mode)
+
+Use `bundle exec rackup` to run application in webhook mode

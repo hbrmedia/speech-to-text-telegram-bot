@@ -19,6 +19,6 @@ Yandex.config = {
   s3: {
     region: 'ru-central1',
     endpoint: 'https://storage.yandexcloud.net',
-    bucket: 'ambucket'
+    bucket: 'bucket'
   }
 }

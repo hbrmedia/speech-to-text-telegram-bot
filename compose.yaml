@@ -5,12 +5,33 @@ services:
       context: .
     command: ['bin/poller']
     restart: always
+    depends_on:
+      - redis
     ports:
       - 9292:9292
     volumes:
       - .:/app
-    environment:
+    environment: &environment
       RACK_ENV: development
+      REDIS_URL: redis://redis:6379/1
       TELEGRAM_TOKEN: TELEGRAM_TOKEN
-      YANDEX_IAM_TOKEN: YANDEX_IAM_TOKEN
-      YANDEX_FOLDER_ID: YANDEX_FOLDER_ID
+      YANDEX_ACCESS_KEY_ID: YANDEX_ACCESS_KEY_ID
+      YANDEX_ACCESS_KEY: YANDEX_ACCESS_KEY
+      YANDEX_API_KEY_ID: YANDEX_API_KEY_ID
+      YANDEX_API_KEY: YANDEX_API_KEY
+
+  updater:
+    build:
+      context: .
+    command: ['bin/updater']
+    restart: always
+    depends_on:
+      - app
+      - redis
+    volumes:
+      - .:/app
+    environment:
+      <<: *environment
+
+  redis:
+    image: redis:7-alpine

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'redis'
+require 'json'
+require_relative "../config/app"
+
+redis = Redis.current
+
+loop do
+  redis.keys("stt.operations.*").each do |key|
+    chat_id, operation = JSON.parse(redis.get(key))
+    operation = Yandex::Operation.fetch(operation['id'])
+
+    next unless operation.done
+
+    text = operation.error ? BotController::TEXT_RECOGNITION_ERROR : operation.text
+    Telegram.bot.send_message(chat_id:, text:)
+    redis.del(key)
+  end
+  sleep 20
+end

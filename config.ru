@@ -1,7 +1,6 @@
 require_relative "app/bot"
 
-token = ENV['TELEGRAM_TOKEN']
-Telegram.bots_config[:default] = token
+token = Telegram.bots_config[:default]
 bot = Telegram::Bot::Client.new(token)
 
 map "/#{token}" do

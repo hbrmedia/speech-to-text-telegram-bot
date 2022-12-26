@@ -1,12 +1,11 @@
 #!/usr/bin/env ruby
 
-require_relative "../app/bot"
 require 'logger'
+require_relative "../app/bot"
 
-token = ENV['TELEGRAM_TOKEN']
-Telegram.bots_config[:default] = token
+token = Telegram.bots_config[:default]
 bot = Telegram::Bot::Client.new(token)
 
 logger = Logger.new(STDOUT)
-poller = Telegram::Bot::UpdatesPoller.new(bot, BotController, logger: logger)
+poller = Telegram::Bot::UpdatesPoller.new(bot, BotController, logger:)
 poller.start
